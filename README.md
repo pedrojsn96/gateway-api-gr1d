@@ -21,10 +21,10 @@ https://www.getpostman.com/collections/e550c4f5c271887e9fd3
 
 ### APIs utilizadas
 
-name       | 
-| :---       |  
-| https://ic.insurance.gr1d.io/developers/api/ea14dff5-13f6-48a3-94df-f513f6d8a368#documentation   | 
-| Outra API   | 
+name       | link |
+| :---       |  :--- |
+| Mongeral | https://ic.insurance.gr1d.io/developers/api/ea14dff5-13f6-48a3-94df-f513f6d8a368#documentation   | 
+| Big Boost | https://gateway.gr1d.io/sandbox/bigdata/bigboost/v1/peoplev2   | 
 
 ### Rodando o projeto localmente
 
