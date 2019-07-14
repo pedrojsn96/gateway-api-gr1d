@@ -1,14 +1,6 @@
-const axios = require('axios');
-
-const api = axios.create({
-	baseURL: 'https://gateway.gr1d.io/sandbox/mongeral/v1/',
-	headers: {
-		'x-api-key': '3cd346aa-a061-4242-b249-08985f4ce862',
-		'Content-Type': 'application/json'
-	}
-});
-
 const routes = require('express').Router();
+
+const api = require('./services/api');
 
 // Mongeral API Methods
 
@@ -98,7 +90,7 @@ routes.get('/timeline', (req, res) => {
 			params: queryParams
 		})
 		.then(response => {
-			// console.log('response:', response.data);
+			console.log('response:', response.data);
 			return response.data;
 		})
 		.catch(error => {
