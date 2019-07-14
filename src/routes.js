@@ -58,7 +58,6 @@ routes.post('/proposta/1', (req, res) => {
 	api
 		.post(`/proposta/1?empresa=${queryParams.empresa}`, dataBody)
 		.then(response => {
-			console.log('response: ', response.data);
 			getUser.child('proposta').set({
 				...PROPOSTA,
 				numeroProposta: response.data.numeroProposta
