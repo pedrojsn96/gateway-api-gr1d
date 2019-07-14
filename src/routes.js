@@ -15,10 +15,10 @@ routes.get('/modeloproposta', (req, res) => {
 			params: queryParams
 		})
 		.then(response => {
-			return response.data.Valor;
+			return res.send(response.data.Valor);
 		})
 		.catch(error => {
-			return error;
+			return res.send(error);
 		});
 });
 
@@ -40,10 +40,10 @@ routes.post('/simulacao', (req, res) => {
 			newUser.child('simulacao').set({
 				...response.data.simulacoes
 			});
-			return response.data;
+			return res.send(response.data);
 		})
 		.catch(error => {
-			return error;
+			return res.send(error);
 		});
 });
 
@@ -62,10 +62,10 @@ routes.post('/proposta/1', (req, res) => {
 				...PROPOSTA,
 				numeroProposta: response.data.numeroProposta
 			});
-			return response.data;
+			return res.send(response.data);
 		})
 		.catch(error => {
-			return error;
+			return res.send(error);
 		});
 });
 
@@ -77,10 +77,10 @@ routes.get('/proposta/:id', (req, res) => {
 			params: queryParams
 		})
 		.then(response => {
-			return response.data;
+			return res.send(response.data);
 		})
 		.catch(error => {
-			return error;
+			return res.send(error);
 		});
 });
 
@@ -92,10 +92,10 @@ routes.get('/timeline', (req, res) => {
 			params: queryParams
 		})
 		.then(response => {
-			return response.data;
+			return res.send(response.data);
 		})
 		.catch(error => {
-			return error;
+			return res.send(error);
 		});
 });
 
@@ -116,10 +116,10 @@ routes.post('/identity', (req, res) => {
 				name: BasicData.Name,
 				mae: BasicData.MotherName
 			});
-			return BasicData;
+			return res.send(BasicData);
 		})
 		.catch(error => {
-			return error;
+			return res.send(error);
 		});
 });
 
