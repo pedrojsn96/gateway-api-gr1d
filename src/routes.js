@@ -1,6 +1,3 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-
 const axios = require('axios');
 
 const api = axios.create({
@@ -11,19 +8,12 @@ const api = axios.create({
 	}
 });
 
-const app = express();
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-app.listen('3000', () => {
-	console.log('This application is running !!!!');
-});
+const routes = require('express').Router();
 
 // Mongeral API Methods
 
 // Pegar os modelos de proposta disponiveis
-app.get('/modeloproposta', (req, res) => {
+routes.get('/modeloproposta', (req, res) => {
 	const queryParams = req.query;
 	api
 		.get('/modeloproposta', {
@@ -45,7 +35,7 @@ app.get('/modeloproposta', (req, res) => {
 });
 
 // Fazer uma simulacao
-app.post('/simulacao', (req, res) => {
+routes.post('/simulacao', (req, res) => {
 	const queryParams = req.query;
 	const dataBody = req.body;
 
@@ -67,7 +57,7 @@ app.post('/simulacao', (req, res) => {
 });
 
 // Criar uma proposta
-app.post('/proposta/1', (req, res) => {
+routes.post('/proposta/1', (req, res) => {
 	const queryParams = req.query;
 	const dataBody = req.body;
 
@@ -84,7 +74,7 @@ app.post('/proposta/1', (req, res) => {
 });
 
 // Recuperar uma proposta
-app.get('/proposta/:id', (req, res) => {
+routes.get('/proposta/:id', (req, res) => {
 	const queryParams = req.query;
 	api
 		.get(`/proposta/${req.params.id}`, {
@@ -101,7 +91,7 @@ app.get('/proposta/:id', (req, res) => {
 });
 
 // Timeline
-app.get('/timeline', (req, res) => {
+routes.get('/timeline', (req, res) => {
 	const queryParams = req.query;
 	api
 		.get('/timeline', {
@@ -116,3 +106,5 @@ app.get('/timeline', (req, res) => {
 			return error;
 		});
 });
+
+module.exports = routes;
