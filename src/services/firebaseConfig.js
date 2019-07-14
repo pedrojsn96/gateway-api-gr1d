@@ -7,7 +7,7 @@ const firebaseConfig = {
 	projectId: 'nineteam-8187b',
 	storageBucket: '',
 	messagingSenderId: '711247234118',
-	appId: '1:711247234118:web:b09ae0791293868f'
+	appId: '1:711247234118:web:4a384b1f4a08e80a'
 };
 
 const Firebase = firebase.initializeApp(firebaseConfig);

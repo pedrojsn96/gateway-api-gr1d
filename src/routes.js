@@ -27,7 +27,7 @@ routes.post('/simulacao', (req, res) => {
 	const queryParams = req.query;
 	const dataBody = req.body;
 
-	const newUser = FirebaseDB.ref('usuarios/ ' + dataBody.simulacoes.user_id);
+	const newUser = FirebaseDB.ref('usuarios/ ' + dataBody.simulacoes[0].user_id);
 
 	api
 		.post(
@@ -53,7 +53,7 @@ routes.post('/proposta/1', (req, res) => {
 	const dataBody = req.body;
 	const { PROPOSTA } = dataBody;
 
-	const getUser = FirebaseDB.ref('usuarios/ ' + PROPOSTA.user_id);
+	const getUser = FirebaseDB.ref('usuarios/ ' + dataBody.PROPOSTA.user_id);
 
 	api
 		.post(`/proposta/1?empresa=${queryParams.empresa}`, dataBody)
@@ -110,7 +110,7 @@ routes.post('/identity', (req, res) => {
 	apiBoost
 		.post('/peoplev2', dataBody)
 		.then(response => {
-			const { BasicData } = response.data.Result;
+			const { BasicData } = response.data.Result[0];
 			getUser.child('infoPessoais').set({
 				age: BasicData.Age,
 				name: BasicData.Name,
