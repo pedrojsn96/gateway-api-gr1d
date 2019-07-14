@@ -1,9 +1,9 @@
 const axios = require('axios');
 
 const api = axios.create({
-	baseURL: 'https://gateway.gr1d.io/sandbox/mongeral/v1/',
+	baseURL: process.env.BASE_URL,
 	headers: {
-		'x-api-key': '3cd346aa-a061-4242-b249-08985f4ce862',
+		'x-api-key': process.env.API_KEY,
 		'Content-Type': 'application/json'
 	}
 });
