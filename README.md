@@ -4,12 +4,8 @@ Api gateway para unificar apis da plataforma https://insurance.gr1d.io/
 
 ## Based on this Postman Collection
 
-https://www.getpostman.com/collections/e550c4f5c271887e9fd3"
+https://www.getpostman.com/collections/e550c4f5c271887e9fd3
 
-### DEV Notes
-
-Todos os pontos do desafio proposto foram implementados.
-Abaixo falarei um pouco sobre o desenvolvimento.
 
 ### Versão do node e npm utilizada?
 
