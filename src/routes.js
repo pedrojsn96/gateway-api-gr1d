@@ -90,7 +90,7 @@ routes.get('/timeline', (req, res) => {
 			params: queryParams
 		})
 		.then(response => {
-			// console.log('response:', response.data);
+			console.log('TESTE response:', response.data);
 			return response.data;
 		})
 		.catch(error => {
