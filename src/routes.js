@@ -1,35 +1,33 @@
 const routes = require('express').Router();
 
 const api = require('./services/api');
+const apiBoost = require('./services/apiBoost');
+
+const FirebaseDB = require('./services/firebaseConfig');
 
 // Mongeral API Methods
 
-// Pegar os modelos de proposta disponiveis
+// Pega os modelos de proposta disponiveis
 routes.get('/modeloproposta', (req, res) => {
 	const queryParams = req.query;
 	api
 		.get('/modeloproposta', {
-			// params: {
-			// 	completo: true,
-			// 	canalVenda: 4,
-			// 	cnpj: 11321351000110
-			// }
 			params: queryParams
 		})
 		.then(response => {
-			// console.log('response:', response.data.Valor[0].nome);
 			return response.data.Valor;
 		})
 		.catch(error => {
-			// console.log('error: ', error);
 			return error;
 		});
 });
 
-// Fazer uma simulacao
+// Faz uma simulacao e persiste no Firebase
 routes.post('/simulacao', (req, res) => {
 	const queryParams = req.query;
 	const dataBody = req.body;
+
+	const newUser = FirebaseDB.ref('usuarios/ ' + dataBody.simulacoes.user_id);
 
 	api
 		.post(
@@ -39,33 +37,40 @@ routes.post('/simulacao', (req, res) => {
 			dataBody
 		)
 		.then(response => {
-			// console.log('response: ', response.data);
+			newUser.child('simulacao').set({
+				...response.data.simulacoes
+			});
 			return response.data;
 		})
 		.catch(error => {
-			// console.log('error');
 			return error;
 		});
 });
 
-// Criar uma proposta
+// Cria uma proposta e persiste no Firebase
 routes.post('/proposta/1', (req, res) => {
 	const queryParams = req.query;
 	const dataBody = req.body;
+	const { PROPOSTA } = dataBody;
+
+	const getUser = FirebaseDB.ref('usuarios/ ' + PROPOSTA.user_id);
 
 	api
 		.post(`/proposta/1?empresa=${queryParams.empresa}`, dataBody)
 		.then(response => {
-			// console.log('response: ', response.data);
+			console.log('response: ', response.data);
+			getUser.child('proposta').set({
+				...PROPOSTA,
+				numeroProposta: response.data.numeroProposta
+			});
 			return response.data;
 		})
 		.catch(error => {
-			// console.log('error');
 			return error;
 		});
 });
 
-// Recuperar uma proposta
+// Recupera uma proposta
 routes.get('/proposta/:id', (req, res) => {
 	const queryParams = req.query;
 	api
@@ -73,11 +78,9 @@ routes.get('/proposta/:id', (req, res) => {
 			params: queryParams
 		})
 		.then(response => {
-			// console.log('response:', response.data);
 			return response.data;
 		})
 		.catch(error => {
-			// console.log('error: ', error);
 			return error;
 		});
 });
@@ -90,11 +93,33 @@ routes.get('/timeline', (req, res) => {
 			params: queryParams
 		})
 		.then(response => {
-			// console.log('response:', response.data);
 			return response.data;
 		})
 		.catch(error => {
-			// console.log('error: ', error);
+			return error;
+		});
+});
+
+// Boost API
+
+// Valida dados do usuário
+routes.post('/identity', (req, res) => {
+	const dataBody = req.body;
+
+	const getUser = FirebaseDB.ref('usuarios/ ' + dataBody.user_id);
+
+	apiBoost
+		.post('/peoplev2', dataBody)
+		.then(response => {
+			const { BasicData } = response.data.Result;
+			getUser.child('infoPessoais').set({
+				age: BasicData.Age,
+				name: BasicData.Name,
+				mae: BasicData.MotherName
+			});
+			return BasicData;
+		})
+		.catch(error => {
 			return error;
 		});
 });
